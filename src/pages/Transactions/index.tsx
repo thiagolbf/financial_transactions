@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { SearchForm } from "../../components/SearchForm";
 import { Summary } from "../../components/Summary";
+
+import { useContext } from "react";
+import { TransactionContext } from "../../contexts/TransactionsContext";
 
 import {
   TransactionsContainer,
@@ -19,20 +21,7 @@ interface Transaction {
 }
 
 export const Transactions = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [loadContent, setLoadContent] = useState(true);
-
-  const loadTransactions = async () => {
-    const response = await fetch("http://localhost:3000/transactions");
-    const data = await response.json();
-
-    console.log(data);
-    setTransactions(data);
-    setLoadContent(false);
-  };
-  useEffect(() => {
-    loadTransactions();
-  }, []);
+  const { loadContent, transactions } = useContext(TransactionContext);
 
   return (
     <div>
@@ -63,15 +52,6 @@ export const Transactions = () => {
                     </tr>
                   );
                 })}
-
-                {/* <tr>
-              <td width="50%"> Hamburguer </td>
-              <td>
-                <PriceHighLight variant="outcome">- R$ 40,00</PriceHighLight>{" "}
-              </td>
-              <td>Alimentação</td>
-              <td>05/05/2023</td>
-            </tr> */}
               </tbody>
             </>
           )}
