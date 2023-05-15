@@ -11,14 +11,7 @@ import {
   PriceHighLight,
 } from "./style";
 
-interface Transaction {
-  id: number;
-  description: string;
-  type: "income" | "outcome";
-  price: number;
-  category: string;
-  createdAt: string;
-}
+import { dateFormatter, priceFormatter } from "../../utils/formatter";
 
 export const Transactions = () => {
   const { loadContent, transactions } = useContext(TransactionContext);
@@ -44,11 +37,12 @@ export const Transactions = () => {
                       <td width="50%"> {value.description} </td>
                       <td>
                         <PriceHighLight variant={value.type}>
-                          {value.price}
+                          {value.type === "outcome" && "- "}
+                          {priceFormatter.format(value.price)}
                         </PriceHighLight>
                       </td>
                       <td>{value.category}</td>
-                      <td>{value.createdAt}</td>
+                      <td>{dateFormatter.format(new Date(value.createdAt))}</td>
                     </tr>
                   );
                 })}
