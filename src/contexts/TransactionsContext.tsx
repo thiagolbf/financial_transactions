@@ -1,7 +1,7 @@
 import { ReactNode, createContext } from "react";
 import { useEffect, useState } from "react";
 
-import { api } from "../services/axios";
+import { api } from "../services";
 
 interface Transaction {
   id: number;
@@ -16,10 +16,18 @@ interface TransactionContextType {
   transactions: Transaction[];
   loadContent: boolean;
   loadTransactions: (query?: string) => Promise<void>;
+  createTransaction: (data: CreateTransactionInput) => Promise<void>;
 }
 
 interface TransactionsProviderProps {
   children: ReactNode;
+}
+
+interface CreateTransactionInput {
+  description: string;
+  price: number;
+  category: string;
+  type: "income" | "outcome";
 }
 
 export const TransactionContext = createContext<TransactionContextType>(
@@ -46,6 +54,8 @@ export function TransctionsProvider({ children }: TransactionsProviderProps) {
 
     const response = await api.get("/transactions", {
       params: {
+        _sort: "cretedAt",
+        _order: "desc",
         q: query,
       },
     });
@@ -57,9 +67,23 @@ export function TransctionsProvider({ children }: TransactionsProviderProps) {
     loadTransactions();
   }, []);
 
+  const createTransaction = async (data: CreateTransactionInput) => {
+    const { description, price, category, type } = data;
+
+    const response = await api.post("/transactions", {
+      description,
+      price,
+      category,
+      type,
+      createdAt: new Date(),
+    });
+
+    setTransactions((state) => [response.data, ...state]);
+  };
+
   return (
     <TransactionContext.Provider
-      value={{ transactions, loadContent, loadTransactions }}
+      value={{ transactions, loadContent, loadTransactions, createTransaction }}
     >
       {" "}
       {children}

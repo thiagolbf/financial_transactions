@@ -23,6 +23,14 @@
       "category": "Educação",
       "price": 1980,
       "createdAt": "2022-07-29T19:36:44.505Z"
+    },
+    {
+      "description": "Amendoin",
+      "price": 2,
+      "category": "Alimentação",
+      "type": "income",
+      "createdAt": "2023-05-17T09:41:51.735Z",
+      "id": 4
     }
   ]
 }
