@@ -1,5 +1,6 @@
-import { ReactNode, createContext } from "react";
+import { ReactNode } from "react";
 import { useEffect, useState } from "react";
+import { createContext } from "use-context-selector";
 
 import { api } from "../services";
 

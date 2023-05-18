@@ -6,9 +6,10 @@ import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { api } from "../../services";
 import { useContext } from "react";
 import { TransactionContext } from "../../contexts/TransactionsContext";
+
+import { useContextSelector } from "use-context-selector";
 
 import {
   CloseButton,
@@ -28,7 +29,12 @@ const newTransactionFormSchema = z.object({
 type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>;
 
 export const NewTransactionModal = () => {
-  const { createTransaction } = useContext(TransactionContext);
+  const createTransaction = useContextSelector(
+    TransactionContext,
+    (context) => {
+      return context.createTransaction;
+    }
+  );
 
   const {
     control,
