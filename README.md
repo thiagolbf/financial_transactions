@@ -18,7 +18,7 @@
 ### Para rodar o projeto:
 
 - Fazer clone do repositório;
-- npm install;
+- npm install
 - npm run dev:server (rodar json server);
 - npm run dev
 
