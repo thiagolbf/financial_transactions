@@ -7,10 +7,10 @@
 - React.JS;
 - Typescript;
 - Context-Api;
-- React-Hook-Form
-- Zod
-- Styled_Components
-- Axios
+- React-Hook-Form;
+- Zod;
+- Styled_Components;
+- Axios;
 - Phosphor_Icons;
 - Radix_UI;
 - Json_Server;
